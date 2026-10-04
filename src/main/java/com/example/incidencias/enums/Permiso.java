@@ -1,0 +1,10 @@
+package com.example.incidencias.enums;
+
+public enum Permiso {
+    CREAR_INCIDENCIA,
+    CREAR_COMENTARIO,
+    ASIGNAR_RESPONSABLE,
+    AGREGAR_MIEMBRO,
+    CAMBIAR_ROL,
+    CERRAR_INCIDENCIA
+}

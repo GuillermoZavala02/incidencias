@@ -6,25 +6,31 @@ import lombok.*;
 
 @Entity
 @Table(name = "comentario")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = { "incidencia", "miembro" })
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Comentario {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_comentario")
+    @EqualsAndHashCode.Include
     private Long idComentario;
 
-    @Column(nullable = false)
+    @Column(name = "cuerpo", nullable = false, length = 255)
     private String cuerpo;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_incidencia", nullable = false)
+    @JoinColumn(name = "id_incidencia", nullable = false, foreignKey = @ForeignKey(name = "fk_comentario_incidencia"))
     private Incidencia incidencia;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_miembro", nullable = false)
+    @JoinColumn(name = "id_miembro", nullable = false, foreignKey = @ForeignKey(name = "fk_comentario_miembro"))
     private Miembro miembro;
 
-    @Column(nullable = false)
+    @Column(name = "fecha_creacion", nullable = false)
     private OffsetDateTime fechaCreacion;
 }
