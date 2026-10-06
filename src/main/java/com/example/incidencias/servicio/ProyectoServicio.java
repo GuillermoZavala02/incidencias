@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.example.incidencias.entidad.Miembro;
 import com.example.incidencias.entidad.Proyecto;
 import com.example.incidencias.entidad.Usuario;
+import com.example.incidencias.repositorio.MiembroRepositorio;
 import com.example.incidencias.repositorio.ProyectoRepositorio;
 import com.example.incidencias.enums.Rol;
 import java.time.OffsetDateTime;
@@ -17,11 +18,11 @@ import jakarta.transaction.Transactional;
 public class ProyectoServicio {
 
     private final ProyectoRepositorio proyectoRepositorio;
-    private final MiembroServicio miembroServicio;
+    private final MiembroRepositorio miembroRepositorio;
 
-    public ProyectoServicio(ProyectoRepositorio proyectoRepositorio, MiembroServicio miembroServicio) {
+    public ProyectoServicio(ProyectoRepositorio proyectoRepositorio, MiembroRepositorio miembroRepositorio) {
         this.proyectoRepositorio = proyectoRepositorio;
-        this.miembroServicio = miembroServicio;
+        this.miembroRepositorio = miembroRepositorio;
     }
 
     public List<Proyecto> ObtenerTodosLosProyectos() {
@@ -40,7 +41,7 @@ public class ProyectoServicio {
         nuevoMiembro.setUsuario(usuario);
         nuevoMiembro.setFechaUnion(OffsetDateTime.now());
         nuevoMiembro.setRol(Rol.ADMINISTRADOR);
-        miembroServicio.GuardarMiembro(nuevoMiembro);
+        miembroRepositorio.save(nuevoMiembro);
         return Guardado;
     }
 

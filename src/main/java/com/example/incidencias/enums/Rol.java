@@ -9,7 +9,8 @@ public enum Rol {
             Permiso.ASIGNAR_RESPONSABLE,
             Permiso.AGREGAR_MIEMBRO,
             Permiso.CAMBIAR_ROL,
-            Permiso.CERRAR_INCIDENCIA)),
+            Permiso.CERRAR_INCIDENCIA,
+            Permiso.ELIMINAR_MIEMBRO)),
     MIEMBRO(Set.of(
             Permiso.CREAR_INCIDENCIA,
             Permiso.CREAR_COMENTARIO));
