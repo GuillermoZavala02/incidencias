@@ -57,7 +57,10 @@ public class MiembroServicio {
     public void EliminarMiembro(Long idMiembroActor, Long idMiembroAEliminar) {
         Miembro actor = miembroRepositorio.findById(idMiembroActor)
                 .orElseThrow(() -> new MiembroNoEncontradoException(idMiembroActor));
-        AutorizacionServicio.verificarPermisoYPertenenciaMiembro(actor, idMiembroAEliminar, Permiso.ELIMINAR_MIEMBRO);
+        Miembro miembroAEliminar = miembroRepositorio.findById(idMiembroAEliminar)
+                .orElseThrow(() -> new MiembroNoEncontradoException(idMiembroAEliminar));
+        AutorizacionServicio.verificarPermisoYPertenenciaMiembro(actor, miembroAEliminar.getProyecto().getIdProyecto(),
+                Permiso.ELIMINAR_MIEMBRO);
         miembroRepositorio.deleteById(idMiembroAEliminar);
     }
 

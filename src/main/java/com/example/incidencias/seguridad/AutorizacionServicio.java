@@ -11,11 +11,12 @@ import java.util.Objects;
 public class AutorizacionServicio {
     public static boolean verificarPermiso(Miembro miembro, Permiso permiso) {
         Rol rol = miembro.getRol();
-        return rol.tienePermiso(permiso);
+        return rol.tienePermiso(permiso) && miembro.isActivo();
     }
 
     public static boolean EsMiembroDelProyecto(Miembro miembro, Incidencia incidencia) {
-        return Objects.equals(miembro.getProyecto().getIdProyecto(), incidencia.getProyecto().getIdProyecto());
+        return Objects.equals(miembro.getProyecto().getIdProyecto(), incidencia.getProyecto().getIdProyecto())
+                && miembro.isActivo();
     }
 
     public static boolean verificarPermisoYPertenenciaIncidencia(Incidencia incidencia, Miembro miembro,

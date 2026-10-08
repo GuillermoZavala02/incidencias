@@ -38,4 +38,7 @@ public class Miembro {
     @Enumerated(EnumType.STRING)
     @Column(name = "rol", nullable = false, length = 50)
     private Rol rol;
+
+    @Column(name = "activo", nullable = false)
+    private boolean activo;
 }
