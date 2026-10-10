@@ -8,4 +8,8 @@ import java.util.List;
 @Repository
 public interface MiembroRepositorio extends JpaRepository<Miembro, Long> {
     List<Miembro> findByUsuario_IdUsuarioAndActivoTrue(Long idUsuario);
+
+    Miembro findByUsuario_IdUsuarioAndProyecto_IdProyecto(Long idUsuario, Long idProyecto);
+
+    boolean existsByUsuario_IdUsuarioAndProyecto_IdProyectoAndActivoFalse(Long idUsuario, Long idProyecto);
 }

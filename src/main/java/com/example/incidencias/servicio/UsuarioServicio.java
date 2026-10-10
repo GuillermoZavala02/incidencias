@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.incidencias.entidad.Usuario;
-import com.example.incidencias.exepcion.UsuarioNoEncontradoException;
+import com.example.incidencias.exepcion.ElementoNoEncontradoException;
 import com.example.incidencias.repositorio.UsuarioRepositorio;
 
 @Service
@@ -22,7 +22,7 @@ public class UsuarioServicio {
    }
 
    public Usuario ObtenerUsuarioPorId(Long id) {
-      return usuarioRepositorio.findById(id).orElseThrow(() -> new UsuarioNoEncontradoException(id));
+      return usuarioRepositorio.findById(id).orElseThrow(() -> new ElementoNoEncontradoException("Usuario", id));
    }
 
    public Usuario ObtenerUsuarioPorCorreo(String correo) {
@@ -30,6 +30,7 @@ public class UsuarioServicio {
    }
 
    public Usuario GuardarUsuario(Usuario usuario) {
+
       return usuarioRepositorio.save(usuario);
    }
 

@@ -11,11 +11,9 @@ import com.example.incidencias.repositorio.ProyectoRepositorio;
 import com.example.incidencias.enums.Rol;
 import java.time.OffsetDateTime;
 import com.example.incidencias.seguridad.AutorizacionServicio;
-import com.example.incidencias.exepcion.AccesoDenegadoExepcion;
-import com.example.incidencias.exepcion.MiembroNoEncontradoException;
+import com.example.incidencias.exepcion.ElementoNoEncontradoException;
 import com.example.incidencias.enums.Permiso;
 import jakarta.transaction.Transactional;
-import com.example.incidencias.exepcion.UsuarioNoEncontradoException;
 import com.example.incidencias.repositorio.UsuarioRepositorio;
 import java.util.ArrayList;
 
@@ -58,7 +56,8 @@ public class ProyectoServicio {
         Miembro nuevoMiembro = new Miembro();
         nuevoMiembro.setProyecto(Guardado);
         nuevoMiembro.setUsuario(
-                usuarioRepositorio.findById(idUsuario).orElseThrow(() -> new UsuarioNoEncontradoException(idUsuario)));
+                usuarioRepositorio.findById(idUsuario)
+                        .orElseThrow(() -> new ElementoNoEncontradoException("Usuario", idUsuario)));
         nuevoMiembro.setFechaUnion(OffsetDateTime.now());
         nuevoMiembro.setRol(Rol.ADMINISTRADOR);
         nuevoMiembro.setActivo(true);
@@ -68,7 +67,7 @@ public class ProyectoServicio {
 
     public void EliminarProyecto(Long id, Long idMiembro) {
         Miembro miembro = miembroRepositorio.findById(idMiembro)
-                .orElseThrow(() -> new MiembroNoEncontradoException(idMiembro));
+                .orElseThrow(() -> new ElementoNoEncontradoException("Miembro", idMiembro));
 
         if (AutorizacionServicio.verificarPermisoYPertenenciaMiembro(miembro, id, Permiso.ELIMINAR_PROYECTO))
             proyectoRepositorio.deleteById(id);
